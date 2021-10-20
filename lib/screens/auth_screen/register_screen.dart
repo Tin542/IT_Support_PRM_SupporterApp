@@ -144,7 +144,7 @@ class RegisterScreen extends StatelessWidget {
         "gender": genderTextEditingController.text.trim(),
       };
 
-      usersRef.child(firebaseUser.uid).set(userDataMap);
+      itspRef.child(firebaseUser.uid).set(userDataMap);
       displayToastMessage("Tài khoản của bạn đã được tạo", context);
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));

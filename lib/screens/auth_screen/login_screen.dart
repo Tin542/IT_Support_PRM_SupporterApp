@@ -159,7 +159,7 @@ class LoginScreen extends StatelessWidget {
         .user;
 
     if (firebaseUser != null) {
-      usersRef.child(firebaseUser.uid).once().then((DataSnapshot snap) {
+      itspRef.child(firebaseUser.uid).once().then((DataSnapshot snap) {
         if (snap.value != null) {
           displayToastMessage("Đăng nhập thành công", context);
           Navigator.push(context,

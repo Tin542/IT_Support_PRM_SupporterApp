@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:it_support/constant.dart';
+import 'package:it_support/firebase_database/database.dart';
 import 'package:it_support/screens/auth_screen/login_screen.dart';
 import 'package:it_support/screens/profile_screen/edit_profile_screen.dart';
 
@@ -15,6 +17,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  displayToastMessage(String message, BuildContext context){
+    Fluttertoast.showToast(msg:message);
+  }
+
   Widget textfield({@required hintText, @required icon, onTap}) {
     return Material(
       elevation: 4,
@@ -198,8 +205,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textfield(
                           hintText: 'Đăng Xuất',
                           icon: Icons.logout,
-                          onTap: () {
-                            logoutUser(context);
+                          onTap: () => {
+                            Get.offAll(() => LoginScreen(),
+                                duration: Duration(microseconds: 600)),
+                          displayToastMessage("Bạn đã đăng xuất.", context),
                           },
                         ),
                       ],
@@ -213,15 +222,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  void logoutUser(BuildContext context) async{
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    _firebaseAuth.signOut();
-    displayToastMessage("Ban da dang xuat", context);
-  }
-
-  displayToastMessage(String message, BuildContext context){
-    Fluttertoast.showToast(msg:message);
-  }
-
 }
