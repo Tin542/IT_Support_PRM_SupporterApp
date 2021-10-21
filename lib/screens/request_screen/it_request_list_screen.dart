@@ -1,79 +1,136 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:it_support/constant.dart';
-import 'package:it_support/screens/components/request_card.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:it_support/firebase_database/database.dart';
 
-class RequestScreen extends StatelessWidget {
+class listrequest extends StatefulWidget {
+  const listrequest({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Danh Sách Yêu Cầu"),
-        backgroundColor: kBlueColor,
-      ),
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  'Chúng tôi có vài vấn đề !',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kTitleTextColor,
-                    fontSize: 18,
-                  ),
-                ),
+  _listrequestState createState() => _listrequestState();
+}
+
+class _listrequestState extends State<listrequest> {
+  final _ref = FirebaseDatabase.instance.reference().child("requests");
+  
+
+  Widget _buildRequestItem({required Map request}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.all(10),
+      height: 130,
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.people,
+                color: Theme.of(context).primaryColor,
+                size: 20,
               ),
               SizedBox(
-                height: 20,
+                width: 6,
               ),
-              buildRequestList(),
+              Text(
+                request['problem'],
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w600),
+              ),
             ],
           ),
-        ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.devices_other_outlined,
+                color: Colors.red,
+                size: 20,
+              ),
+              SizedBox(
+                width: 6,
+              ),
+              Text(
+                request['device'],
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Icon(
+                Icons.description_outlined,
+                color: Colors.purple,
+                size: 20,
+              ),
+              SizedBox(
+                width: 6,
+              ),
+              Text(
+                request['user_email'],
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.purple,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          SizedBox(height: 15,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+                
+            GestureDetector(onTap: (){
+              reqRef.child(request['key']).update({'status' : 'đang xử lí'});
+              displayToastMessage("Chấp nhận thành công", context);
+            },
+            child: Row(children: [
+              Icon(Icons.check_box, color: Colors.green,),
+              SizedBox(width: 6,),
+
+              Text('Chấp nhận',
+              style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.green,
+                    fontWeight: FontWeight.w600)),
+            ],),)
+          ],)
+        ],
       ),
     );
   }
 
-  buildRequestList() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 30,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Danh sách yêu cầu'),
       ),
-      child: Column(
-        children: <Widget>[
-          RequestCard(
-            'Le Thi A',
-            'Devices: Macbook Pro 16\nProblem: How to install Windown on MacOS.',
-            'assets/images/Yeti.png',
-            kBlueColor,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          RequestCard(
-            'Le Thi B',
-            'Devices: Laptop MSI\nProblem: My computer cannot connect to the Internet.',
-            'assets/images/Yeti.png',
-            kYellowColor,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          RequestCard(
-            'Le Thi C',
-            'Devices: Iphone 13\nProblem: My phone hangs.',
-            'assets/images/Yeti.png',
-            kOrangeColor,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+      body: Container(
+        height: double.infinity,
+        child: FirebaseAnimatedList(
+          query: _ref.orderByChild("status").equalTo('đang chờ xử lí'),
+          itemBuilder: (BuildContext context, DataSnapshot snapshot,
+              Animation<double> animation, int index) {
+            Map request = snapshot.value;
+            request['key'] = snapshot.key;
+            return _buildRequestItem(request: request);
+          },
+        ),
       ),
     );
+  }
+  displayToastMessage(String message, BuildContext context) {
+    Fluttertoast.showToast(msg: message);
   }
 }
