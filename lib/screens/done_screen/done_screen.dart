@@ -5,22 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:it_support/firebase_database/database.dart';
 
-class listrequest extends StatefulWidget {
-  const listrequest({Key? key}) : super(key: key);
+class donescreen extends StatefulWidget {
+  const donescreen({Key? key}) : super(key: key);
 
   @override
   _listrequestState createState() => _listrequestState();
 }
 
-class _listrequestState extends State<listrequest> {
+class _listrequestState extends State<donescreen> {
   final _ref = FirebaseDatabase.instance.reference().child("requests");
-  
 
   Widget _buildRequestItem({required Map request}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(10),
-      height: 150,
+      height: 130,
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -83,14 +82,17 @@ class _listrequestState extends State<listrequest> {
                     color: Colors.purple,
                     fontWeight: FontWeight.w600),
               ),
+              
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             children: [
               Icon(
                 Icons.sort_outlined,
-                color: Colors.orange,
+                color: Colors.green,
                 size: 20,
               ),
               SizedBox(
@@ -100,33 +102,13 @@ class _listrequestState extends State<listrequest> {
                 request['status'],
                 style: TextStyle(
                     fontSize: 16,
-                    color: Colors.orange,
+                    color: Colors.green,
                     fontWeight: FontWeight.w600),
               ),
               
               
             ],
           ),
-          SizedBox(height: 15,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-                
-            GestureDetector(onTap: (){
-              reqRef.child(request['key']).update({'status' : 'đang xử lí'});
-              displayToastMessage("Chấp nhận thành công", context);
-            },
-            child: Row(children: [
-              Icon(Icons.check_box, color: Colors.green,),
-              SizedBox(width: 6,),
-
-              Text('Chấp nhận',
-              style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.green,
-                    fontWeight: FontWeight.w600)),
-            ],),)
-          ],)
         ],
       ),
     );
@@ -137,12 +119,12 @@ class _listrequestState extends State<listrequest> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Danh sách yêu cầu'),
+        title: Text('Danh sách hoàn thành'),
       ),
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đang chờ xử lí'),
+          query: _ref.orderByChild("status").equalTo('đã xử lí xong'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;
@@ -153,6 +135,7 @@ class _listrequestState extends State<listrequest> {
       ),
     );
   }
+
   displayToastMessage(String message, BuildContext context) {
     Fluttertoast.showToast(msg: message);
   }
