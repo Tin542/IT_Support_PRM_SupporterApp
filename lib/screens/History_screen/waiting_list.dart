@@ -18,8 +18,6 @@ class _listrequestState extends State<waitingscreen> {
   Widget _buildRequestItem({required Map request}) {
     
     return Container(
-      
-      
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(10),
       height: 160,
@@ -31,7 +29,7 @@ class _listrequestState extends State<waitingscreen> {
           Row(
             children: [
               Icon(
-                Icons.people,
+                Icons.report_problem,
                 color: Theme.of(context).primaryColor,
                 size: 20,
               ),

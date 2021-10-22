@@ -29,7 +29,7 @@ class _listrequestState extends State<listrequest> {
           Row(
             children: [
               Icon(
-                Icons.people,
+                Icons.report_problem,
                 color: Theme.of(context).primaryColor,
                 size: 20,
               ),
