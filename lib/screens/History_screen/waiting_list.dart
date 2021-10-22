@@ -5,22 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:it_support/firebase_database/database.dart';
 
-class listrequest extends StatefulWidget {
-  const listrequest({Key? key}) : super(key: key);
+class waitingscreen extends StatefulWidget {
+  const waitingscreen({Key? key}) : super(key: key);
 
   @override
   _listrequestState createState() => _listrequestState();
 }
 
-class _listrequestState extends State<listrequest> {
+class _listrequestState extends State<waitingscreen> {
   final _ref = FirebaseDatabase.instance.reference().child("requests");
-  
 
   Widget _buildRequestItem({required Map request}) {
+    
     return Container(
+      
+      
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.all(10),
-      height: 150,
+      height: 160,
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +87,10 @@ class _listrequestState extends State<listrequest> {
               ),
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
+          
           Row(
             children: [
               Icon(
@@ -107,26 +112,65 @@ class _listrequestState extends State<listrequest> {
               
             ],
           ),
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 8,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-                
-            GestureDetector(onTap: (){
-              reqRef.child(request['key']).update({'status' : 'đang xử lí'});
-              displayToastMessage("Chấp nhận thành công", context);
-            },
-            child: Row(children: [
-              Icon(Icons.check_box, color: Colors.green,),
-              SizedBox(width: 6,),
-
-              Text('Chấp nhận',
-              style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.green,
-                    fontWeight: FontWeight.w600)),
-            ],),)
-          ],)
+              GestureDetector(
+                onTap: () {
+                  reqRef
+                      .child(request['key'])
+                      .update({'status': 'đã xử lí xong'});
+                  displayToastMessage("Đã hoàn thành yêu cầu", context);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.check_box,
+                      color: Colors.green,
+                    ),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    Text('Hoàn thành',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.green,
+                            fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              GestureDetector(
+                onTap: () {
+                  reqRef
+                      .child(request['key'])
+                      .update({'status': 'đang chờ xử lí'});
+                  displayToastMessage("Hủy bỏ yêu cầu thành công", context);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    Text('Hủy Bỏ',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.red,
+                            fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
@@ -137,12 +181,12 @@ class _listrequestState extends State<listrequest> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Danh sách yêu cầu'),
+        title: Text('Danh sách chờ'),
       ),
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đang chờ xử lí'),
+          query: _ref.orderByChild("status").equalTo('đang xử lí'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;
@@ -153,6 +197,7 @@ class _listrequestState extends State<listrequest> {
       ),
     );
   }
+
   displayToastMessage(String message, BuildContext context) {
     Fluttertoast.showToast(msg: message);
   }
