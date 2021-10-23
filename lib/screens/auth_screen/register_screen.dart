@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:animated_textformfields/animated_textformfield/animated_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:it_support/firebase_database/database.dart';
@@ -7,11 +7,14 @@ import 'package:it_support/screens/auth_screen/login_screen.dart';
 
 
 class RegisterScreen extends StatelessWidget {
+  FocusNode myFocusNode1 = FocusNode();
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController genderTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController dobTextEditingController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +69,7 @@ class RegisterScreen extends StatelessWidget {
                       labelText: "SỐ ĐIỆN THOẠI",
                       labelStyle:
                       TextStyle(color: Color(0xff888888), fontSize: 15)),
+                    keyboardType: TextInputType.phone
                 ),
               ),
               Padding(
@@ -92,6 +96,73 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        "NGÀY SINH",
+                        style: TextStyle(color: Color(0xff888888), fontSize: 15)
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Icon(
+                      Icons.calendar_today_rounded,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AnimatedTextFormField(
+                          width: 250,
+                          height: 48.0,
+                          inputType: TextInputType.text,
+                          hintText: "Thêm ngày sinh của bạn",
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'pick date';
+                            }
+                            return null;
+                          },
+                          textStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.0,
+                          ),
+                          controller: dobTextEditingController,
+                          focusNode: myFocusNode1,
+                          cornerRadius: BorderRadius.circular(14.0),
+                          onTap: () async {
+                            DateTime date = DateTime(1900);
+                            FocusScope.of(context).requestFocus(new FocusNode());
+                            date = (await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime(2100)))!;
+                            var formattedDate =
+                                "${date.day}-${date.month}-${date.year}";
+                            dobTextEditingController.text =
+                                formattedDate.toString();
+                          },
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                 child: SizedBox(
                   width: double.infinity,
@@ -103,8 +174,12 @@ class RegisterScreen extends StatelessWidget {
                     onPressed: (){
                       if(nameTextEditingController.text.length < 1){
                         displayToastMessage("Tên ít nhất 2 kí tự", context);
+                      } else if (emailTextEditingController.text.isEmpty){
+                        displayToastMessage("Email không thể để trống", context);
                       } else if (!emailTextEditingController.text.contains("@")){
                         displayToastMessage("Email không hợp lệ", context);
+                      } else if (dobTextEditingController.text.isEmpty){
+                        displayToastMessage("Vui lòng nhập ngày sinh của bạn", context);
                       } else if (passwordTextEditingController.text.length < 7){
                         displayToastMessage("Password ít nhất 8 kí tự", context);
                       } else {
@@ -126,7 +201,6 @@ class RegisterScreen extends StatelessWidget {
   }
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;// authen vao firebase
-  // final dailySpecialRef = database.reference.child("");
   void registerNewUser(BuildContext context) async {
     final User? firebaseUser = (await _firebaseAuth
         .createUserWithEmailAndPassword(
@@ -142,6 +216,7 @@ class RegisterScreen extends StatelessWidget {
         "email": emailTextEditingController.text.trim(),
         "phone": phoneTextEditingController.text.trim(),
         "gender": genderTextEditingController.text.trim(),
+        "dob": dobTextEditingController.text.trim(),
       };
 
       itspRef.child(firebaseUser.uid).set(userDataMap);
