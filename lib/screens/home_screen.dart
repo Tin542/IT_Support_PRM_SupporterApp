@@ -18,6 +18,7 @@ class _HomeScreenCustomerState extends State<HomeScreenCustomer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text("ITSupport"),
         ),
         body: Body());
