@@ -30,7 +30,7 @@ class _listrequestState extends State<donescreen> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
-        height: 130,
+        height: 140,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -119,6 +119,39 @@ class _listrequestState extends State<donescreen> {
                 
                 
               ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    reqRef
+                        .child(request['key'])
+                        .update({'status': 'đã xóa'});
+                    displayToastMessage("Đã xóa yêu cầu", context);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.cancel,
+                        color: Colors.red,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text('Xóa khỏi danh sách',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.red,
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+            
+          ],
             ),
           ],
         ),

@@ -101,7 +101,7 @@ class _listrequestState extends State<listrequest> {
               children: [
                 Icon(
                   Icons.sort_outlined,
-                  color: Colors.orange,
+                  color: Colors.amberAccent,
                   size: 20,
                 ),
                 SizedBox(
@@ -111,7 +111,7 @@ class _listrequestState extends State<listrequest> {
                   request['status'],
                   style: TextStyle(
                       fontSize: 16,
-                      color: Colors.orange,
+                      color: Colors.amberAccent,
                       fontWeight: FontWeight.w600),
                 ),
                 
