@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:it_support/constant.dart';
 import 'package:it_support/firebase_database/database.dart';
 import 'package:it_support/screens/auth_screen/login_screen.dart';
+import 'package:it_support/screens/done_screen/done_screen.dart';
 import 'package:it_support/screens/profile_screen/edit_profile_screen.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -23,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     getProfileuser();
   }
+
   final User? user = FirebaseAuth.instance.currentUser;
   String displayEmail = '';
   String displayGender = '';
@@ -80,8 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           shape: BoxShape.circle,
                           color: kBackgroundColor,
                           image: DecorationImage(
-                            image:
-                            AssetImage('assets/images/Yeti.png'),
+                            image: AssetImage('assets/images/Yeti.png'),
                           ),
                         ),
                       ),
@@ -131,8 +131,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Icon(Icons.person, color: kWhiteColor,),
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Icon(
+                                  Icons.person,
+                                  color: kWhiteColor,
+                                ),
                               ),
                               Text(
                                 "Tài khoản",
@@ -149,11 +152,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 onPressed: () => {
                                   Get.to(() => EditProfile(),
                                       transition:
-                                      Transition.rightToLeftWithFade,
+                                          Transition.rightToLeftWithFade,
                                       duration: Duration(milliseconds: 600))
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(100, 0, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(100, 0, 0, 0),
                                   child: Icon(
                                     Icons.edit,
                                     color: kWhiteColor,
@@ -187,8 +191,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Icon(Icons.contact_support, color: kWhiteColor,),
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: Icon(
+                                  Icons.contact_support,
+                                  color: kWhiteColor,
+                                ),
                               ),
                               Text(
                                 "Cài đặt",
@@ -202,9 +209,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         textfield(
-                          hintText: 'Lịch sử',
-                          icon: Icons.history,
-                        ),
+                            hintText: 'Lịch sử',
+                            icon: Icons.history,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => donescreen()));
+                            }),
                         textfield(
                           hintText: 'Hỗ trợ',
                           icon: Icons.contact_support_outlined,
@@ -215,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () => {
                             Get.offAll(() => LoginScreen(),
                                 duration: Duration(microseconds: 600)),
-                          displayToastMessage("Bạn đã đăng xuất.", context),
+                            displayToastMessage("Bạn đã đăng xuất.", context),
                           },
                         ),
                       ],
@@ -246,13 +258,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         print(displayGender);
         print(displayName);
         print(displayPhone);
-
       });
     });
   }
 
-  displayToastMessage(String message, BuildContext context){
-    Fluttertoast.showToast(msg:message);
+  displayToastMessage(String message, BuildContext context) {
+    Fluttertoast.showToast(msg: message);
   }
-
 }
