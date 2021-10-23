@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String displayGender = '';
   String displayName = '';
   String displayPhone = '';
+  String displayDob = '';
 
   Widget textfield({@required hintText, @required icon, onTap}) {
     return Material(
@@ -138,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               Text(
-                                "Tài khoản",
+                                "Thông tin",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 22,
@@ -174,6 +175,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textfield(
                           hintText: displayGender,
                           icon: Icons.female,
+                        ),
+                        textfield(
+                          hintText: displayDob,
+                          icon: Icons.today,
                         ),
                         textfield(
                           hintText: displayPhone,
@@ -218,10 +223,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       builder: (context) => donescreen()));
                             }),
                         textfield(
-                          hintText: 'Hỗ trợ',
-                          icon: Icons.contact_support_outlined,
-                        ),
-                        textfield(
                           hintText: 'Đăng Xuất',
                           icon: Icons.logout,
                           onTap: () => {
@@ -249,15 +250,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       final gender = data['gender'] as String;
       final name = data['name'] as String;
       final phone = data['phone'] as String;
+      final dob = data['dob'] as String;
       setState(() {
         displayEmail = '$email';
         displayGender = '$gender';
         displayName = '$name';
         displayPhone = '$phone';
+        displayDob = '$dob';
         print(displayEmail);
         print(displayGender);
         print(displayName);
         print(displayPhone);
+        print(displayDob);
+
       });
     });
   }
