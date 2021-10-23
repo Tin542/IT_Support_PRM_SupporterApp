@@ -16,33 +16,32 @@ class HomeScreenCustomer extends StatefulWidget {
 }
 
 class _HomeScreenCustomerState extends State<HomeScreenCustomer> {
-  User? user = FirebaseAuth.instance.currentUser;
-
-  String userName = '';
-
-  void getName() {
-    usersRef.child(user!.uid).child('name').onValue.listen((event) {
-      
-      setState(() {
-        print("name: " + userName);
-        userName = event.snapshot.value;
-        
-      });
-    });
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getName();
   }
+  User? user = FirebaseAuth.instance.currentUser;
+  String displayName = '';
+
+  void getName() {
+    itspRef.child(user!.uid).onValue.listen((event) {
+      final data = new Map<String, dynamic>.from(event.snapshot.value);
+      final name = data['name'] as String;
+      setState(() {
+        displayName = '$name';
+        print(displayName);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text("Hello, " + userName),
+          title: Text("Hello, " + displayName),
         ),
         body: Body());
   }
