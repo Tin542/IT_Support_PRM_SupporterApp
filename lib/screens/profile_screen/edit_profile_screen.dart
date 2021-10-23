@@ -1,3 +1,4 @@
+import 'package:animated_textformfields/animated_textformfield/animated_textformfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,23 +20,12 @@ class _EditProfileState extends State<EditProfile> {
   String displayGender = '';
   String displayName = '';
   String displayPhone = '';
+  String displayDob = '';
+  FocusNode myFocusNode1 = FocusNode();
   TextEditingController nameTextNameController = TextEditingController();
   TextEditingController genderTextNameController = TextEditingController();
   TextEditingController phoneTextNameController = TextEditingController();
-
-  TextEditingController textFirstNameController = TextEditingController();
-  TextEditingController textLastNameController = TextEditingController();
-  TextEditingController textPhoneController = TextEditingController();
-  TextEditingController textEmailController = TextEditingController();
-  TextEditingController textStreetAddressController = TextEditingController();
-  TextEditingController textLocalityController = TextEditingController();
-  TextEditingController textCityController = TextEditingController();
-  TextEditingController textPostalCodeController = TextEditingController();
-  TextEditingController textHeightController = TextEditingController();
-  TextEditingController textWeightController = TextEditingController();
-  TextEditingController textAllergyController = TextEditingController();
-  TextEditingController textBloodGroupController = TextEditingController();
-  TextEditingController textBackgroundDiseaseController = TextEditingController();
+  TextEditingController dobTextEditingController = TextEditingController();
 
   var selectedGender;
 
@@ -200,7 +190,67 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 20, 0),
+                        child: Text(
+                          "Ngày sinh:",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AnimatedTextFormField(
+                              width: 190,
+                              height: 48.0,
+                              inputType: TextInputType.text,
+                              hintText: displayDob,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'pick date';
+                                }
+                                return null;
+                              },
+                              textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16.0,
+                              ),
+                              controller: dobTextEditingController,
+                              focusNode: myFocusNode1,
+                              cornerRadius: BorderRadius.circular(14.0),
+                              onTap: () async {
+                                DateTime date = DateTime(1900);
+
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+
+                                date = (await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1900),
+                                    lastDate: DateTime(2100)))!;
+                                var formattedDate =
+                                    "${date.day}-${date.month}-${date.year}";
+                                dobTextEditingController.text =
+                                    formattedDate.toString();
+                              },
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15),
                   Stack(
                     children: [
                       Padding(
@@ -234,6 +284,9 @@ class _EditProfileState extends State<EditProfile> {
                         if (nameTextNameController.text.isEmpty) {
                           displayToastMessage(
                               "Vui lòng điền tên của bạn", context);
+                        } else if (genderTextNameController.text.isEmpty) {
+                          displayToastMessage(
+                              "Vui lòng điền giới tính của bạn", context);
                         } else if (phoneTextNameController.text.isEmpty) {
                           displayToastMessage(
                               "Vui lòng điền số điện thoại của bạn", context);
@@ -260,12 +313,14 @@ class _EditProfileState extends State<EditProfile> {
   }
   void updateProfile() async {
 
-    usersRef.child(user!.uid).update({
+    itspRef.child(user!.uid).update({
       'name' : nameTextNameController.text.trim(),
       'phone' : phoneTextNameController.text.trim(),
+      "gender": genderTextNameController.text.trim(),
+      'dob' : dobTextEditingController.text.trim(),
     });
 
-    displayToastMessage("Tài khoản của bạn đã được tạo", context);
+    displayToastMessage("Cập nhập thông tin thành công", context);
     Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
   }
   void getProfileuser() {
@@ -275,15 +330,18 @@ class _EditProfileState extends State<EditProfile> {
       final gender = data['gender'] as String;
       final name = data['name'] as String;
       final phone = data['phone'] as String;
+      final dob = data['dob'] as String;
       setState(() {
         displayEmail = '$email';
         displayGender = '$gender';
         displayName = '$name';
         displayPhone = '$phone';
+        displayDob = '$dob';
         print(displayEmail);
         print(displayGender);
         print(displayName);
         print(displayPhone);
+        print(displayDob);
       });
     });
   }
