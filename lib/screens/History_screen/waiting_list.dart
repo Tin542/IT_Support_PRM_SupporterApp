@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:it_support/firebase_database/database.dart';
 import 'package:it_support/models/request.dart';
+import 'package:it_support/screens/call_screen/videocall_screen.dart';
 import 'package:it_support/screens/request_screen/it_request_detail_screen.dart';
 
 class waitingscreen extends StatefulWidget {
@@ -174,6 +175,33 @@ class _listrequestState extends State<waitingscreen> {
                           style: TextStyle(
                               fontSize: 16,
                               color: Colors.red,
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CallScreen()));
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.video_call,
+                        color: Colors.blue,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text('Video call',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
                               fontWeight: FontWeight.w600)),
                     ],
                   ),
