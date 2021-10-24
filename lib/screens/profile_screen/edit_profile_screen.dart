@@ -5,7 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:it_support/constant.dart';
 import 'package:it_support/firebase_database/database.dart';
-import 'package:it_support/screens/profile_screen/profile_screen.dart';
+import 'package:it_support/screens/bottom_nav_bar_screen.dart';
+import 'package:it_support/screens/home_screen.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -321,7 +322,7 @@ class _EditProfileState extends State<EditProfile> {
     });
 
     displayToastMessage("Cập nhập thông tin thành công", context);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
   }
   void getProfileuser() {
     itspRef.child(user!.uid).onValue.listen((event) {
