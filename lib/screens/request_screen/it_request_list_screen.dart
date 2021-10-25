@@ -20,6 +20,7 @@ class _listrequestState extends State<listrequest> {
 
   Widget _buildRequestItem({required Map request}) {
     return GestureDetector(
+      
       onTap: (){
             final requestDetail = Request.fromRTDB(request);
             Navigator.push(
@@ -31,7 +32,7 @@ class _listrequestState extends State<listrequest> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
-        height: 150,
+        height: 169,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -76,9 +77,12 @@ class _listrequestState extends State<listrequest> {
                       color: Colors.red,
                       fontWeight: FontWeight.w600),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
+              
+              ],
+            ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
                 Icon(
                   Icons.description_outlined,
                   color: Colors.purple,
@@ -132,6 +136,7 @@ class _listrequestState extends State<listrequest> {
                 SizedBox(width: 6,),
     
                 Text('Chấp nhận',
+                
                 style: TextStyle(
                       fontSize: 16,
                       color: Colors.green,
