@@ -130,7 +130,7 @@ class _listrequestState extends State<donescreen> {
                   onTap: () {
                     reqRef
                         .child(request['key'])
-                        .update({'status': 'đã xóa'});
+                        .remove();
                     displayToastMessage("Đã xóa yêu cầu", context);
                   },
                   child: Row(
