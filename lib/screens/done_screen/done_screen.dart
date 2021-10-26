@@ -30,7 +30,7 @@ class _listrequestState extends State<donescreen> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
-        height: 169,
+        height: 230,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -117,6 +117,54 @@ class _listrequestState extends State<donescreen> {
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.green,
+                      fontWeight: FontWeight.w600),
+                ),
+                
+                
+              ],
+            ),
+             SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.star_border_purple500,
+                  color: Colors.amber[600],
+                  size: 20,
+                ),
+                SizedBox(
+                  width: 6,
+                ),
+                Text(
+                  request['rating'],
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.amber[600],
+                      fontWeight: FontWeight.w600),
+                ),
+                
+                
+              ],
+            ),
+             SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.design_services,
+                  color: Colors.teal[400],
+                  size: 20,
+                ),
+                SizedBox(
+                  width: 6,
+                ),
+                Text(
+                  request['feedback'],
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.teal[400],
                       fontWeight: FontWeight.w600),
                 ),
                 
