@@ -22,6 +22,7 @@ class _EditProfileState extends State<EditProfile> {
   String displayName = '';
   String displayPhone = '';
   String displayDob = '';
+  String _choosegender = '';
   FocusNode myFocusNode1 = FocusNode();
   TextEditingController nameTextNameController = TextEditingController();
   TextEditingController genderTextNameController = TextEditingController();
@@ -141,31 +142,6 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 20, 0),
-                        child: Text(
-                          "Giới tính:",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 90),
-                        child: TextField(
-                          controller: genderTextNameController,
-                          decoration: InputDecoration(
-                            hintText: displayGender,
-                            border: OutlineInputBorder(),
-                          ),
-                          keyboardType: TextInputType.text,
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(height: 15),
                   Stack(
                     children: [
@@ -190,6 +166,78 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 15),
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 20, 0),
+                        child: Text(
+                          "Email:",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(95, 9, 0, 0),
+                        child: Text(
+                          displayEmail,
+                          style: TextStyle(
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 20, 0),
+                        child: Text(
+                          "Giới tính:",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(95, 9, 0, 0),
+                        child: Text(
+                          displayGender,
+                          style: TextStyle(
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 10, 0, 0),
+                    child: Container(
+                      height: 30,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          _gender('Nam'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          _gender('Nữ'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          _gender('Khác'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 15),
                   Row(
@@ -251,29 +299,6 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 15),
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                        child: Text(
-                          "Email:",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 80),
-                        child: Text(
-                          displayEmail,
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(100, 20, 0, 0),
                     child: RaisedButton(
@@ -285,9 +310,6 @@ class _EditProfileState extends State<EditProfile> {
                         if (nameTextNameController.text.isEmpty) {
                           displayToastMessage(
                               "Vui lòng điền tên của bạn", context);
-                        } else if (genderTextNameController.text.isEmpty) {
-                          displayToastMessage(
-                              "Vui lòng điền giới tính của bạn", context);
                         } else if (phoneTextNameController.text.isEmpty) {
                           displayToastMessage(
                               "Vui lòng điền số điện thoại của bạn", context);
@@ -312,12 +334,38 @@ class _EditProfileState extends State<EditProfile> {
       ),
     );
   }
+
+  Widget _gender(String title) {
+    return InkWell(
+      child: Container(
+        height: 30,
+        width: 80,
+        decoration: BoxDecoration(
+          color: _choosegender == title
+              ? Colors.green
+              : Theme.of(context).accentColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          ),
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          _choosegender = title;
+        });
+      },
+    );
+  }
   void updateProfile() async {
 
     itspRef.child(user!.uid).update({
       'name' : nameTextNameController.text.trim(),
       'phone' : phoneTextNameController.text.trim(),
-      "gender": genderTextNameController.text.trim(),
+      "gender": _choosegender,
       'dob' : dobTextEditingController.text.trim(),
     });
 
