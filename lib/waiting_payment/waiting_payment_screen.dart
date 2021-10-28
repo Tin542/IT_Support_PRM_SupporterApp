@@ -7,14 +7,14 @@ import 'package:it_support/firebase_database/database.dart';
 import 'package:it_support/models/request.dart';
 import 'package:it_support/screens/request_screen/it_request_detail_screen.dart';
 
-class donescreen extends StatefulWidget {
-  const donescreen({Key? key}) : super(key: key);
+class waitingpayment extends StatefulWidget {
+  const waitingpayment({Key? key}) : super(key: key);
 
   @override
   _listrequestState createState() => _listrequestState();
 }
 
-class _listrequestState extends State<donescreen> {
+class _listrequestState extends State<waitingpayment> {
   final _ref = FirebaseDatabase.instance.reference().child("requests");
 
   Widget _buildRequestItem({required Map request}) {
@@ -30,7 +30,7 @@ class _listrequestState extends State<donescreen> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
-        height: 230,
+        height: 169,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +106,7 @@ class _listrequestState extends State<donescreen> {
               children: [
                 Icon(
                   Icons.sort_outlined,
-                  color: Colors.green,
+                  color: Colors.teal[400],
                   size: 20,
                 ),
                 SizedBox(
@@ -116,54 +116,6 @@ class _listrequestState extends State<donescreen> {
                   request['status'],
                   style: TextStyle(
                       fontSize: 16,
-                      color: Colors.green,
-                      fontWeight: FontWeight.w600),
-                ),
-                
-                
-              ],
-            ),
-             SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.star_border_purple500,
-                  color: Colors.amber[600],
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['rating'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.amber[600],
-                      fontWeight: FontWeight.w600),
-                ),
-                
-                
-              ],
-            ),
-             SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.design_services,
-                  color: Colors.teal[400],
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['feedback'],
-                  style: TextStyle(
-                      fontSize: 16,
                       color: Colors.teal[400],
                       fontWeight: FontWeight.w600),
                 ),
@@ -171,6 +123,7 @@ class _listrequestState extends State<donescreen> {
                 
               ],
             ),
+            
             SizedBox(
               height: 8,
             ),
@@ -215,12 +168,12 @@ class _listrequestState extends State<donescreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Danh sách hoàn thành'),
+        title: Text('Danh sách chờ thanh toán'),
       ),
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đã thanh toán xong'),
+          query: _ref.orderByChild("status").equalTo('đang chờ thanh toán'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;

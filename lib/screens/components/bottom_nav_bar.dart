@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:it_support/constant.dart';
 import 'package:it_support/screens/History_screen/waiting_list.dart';
-import 'package:it_support/screens/done_screen/done_screen.dart';
 import 'package:it_support/screens/home_screen.dart';
 import 'package:it_support/screens/request_screen/it_request_list_screen.dart';
-import 'package:it_support/screens/request_screen/it_support_list_screen.dart';
 import 'package:it_support/screens/chat_screen/list_chat_screen.dart';
 import 'package:it_support/screens/profile_screen/profile_screen.dart';
+import 'package:it_support/waiting_payment/waiting_payment_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HomeScreenCustomer(),
     listrequest(),
     waitingscreen(),
-    donescreen(),
+    waitingpayment(),
     ListChatScreen(),
     ProfileScreen(),
   ];
@@ -50,7 +49,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.history), label: "Danh sách chờ"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.done_all), label: "Danh sách hoàn thành"),
+                  icon: Icon(Icons.payment), label: "Danh sách thanh toán"),
               BottomNavigationBarItem(
                 icon: Icon(Icons.message),
                 label: "Trò truyện",
