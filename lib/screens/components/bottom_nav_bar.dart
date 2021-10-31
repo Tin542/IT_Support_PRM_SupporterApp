@@ -3,7 +3,6 @@ import 'package:it_support/constant.dart';
 import 'package:it_support/screens/History_screen/waiting_list.dart';
 import 'package:it_support/screens/home_screen.dart';
 import 'package:it_support/screens/request_screen/it_request_list_screen.dart';
-import 'package:it_support/screens/chat_screen/list_chat_screen.dart';
 import 'package:it_support/screens/profile_screen/profile_screen.dart';
 import 'package:it_support/waiting_payment/waiting_payment_screen.dart';
 

@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:it_support/firebase_database/database.dart';
 import 'package:it_support/screens/components/body.dart';
 
-
-import 'dart:ui';
-
-import 'components/load_image.dart';
-
 class HomeScreenCustomer extends StatefulWidget {
   const HomeScreenCustomer({Key? key}) : super(key: key);
 
@@ -22,6 +17,7 @@ class _HomeScreenCustomerState extends State<HomeScreenCustomer> {
     super.initState();
     getName();
   }
+
   User? user = FirebaseAuth.instance.currentUser;
   String displayName = '';
 

@@ -20,195 +20,187 @@ class _listrequestState extends State<donescreen> {
 
   Widget _buildRequestItem({required Map request}) {
     return GestureDetector(
-      onTap: (){
-        final requestDetail = Request.fromRTDB(request);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        DetailRequestScreen(request: requestDetail)));
-      },
-      child: request['it_email'] == user!.email? Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.all(10),
-        height: 230,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.report_problem,
-                  color: Theme.of(context).primaryColor,
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['problem'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.devices_other_outlined,
-                  color: Colors.red,
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['device'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.red,
-                      fontWeight: FontWeight.w600),
-                ),
-                
-                
-              ],
-            ),
-             SizedBox(height: 10,),
-            Row(
-              children: [
-                Icon(
-                  Icons.description_outlined,
-                  color: Colors.purple,
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['user_email'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.purple,
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.sort_outlined,
-                  color: Colors.green,
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['status'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.green,
-                      fontWeight: FontWeight.w600),
-                ),
-                
-                
-              ],
-            ),
-             SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.star_border_purple500,
-                  color: Colors.amber[600],
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['rating'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.amber[600],
-                      fontWeight: FontWeight.w600),
-                ),
-                
-                
-              ],
-            ),
-             SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.design_services,
-                  color: Colors.teal[400],
-                  size: 20,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  request['feedback'],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.teal[400],
-                      fontWeight: FontWeight.w600),
-                ),
-                
-                
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    reqRef
-                        .child(request['key'])
-                        .remove();
-                    displayToastMessage("Đã xóa yêu cầu", context);
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.cancel,
-                        color: Colors.red,
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('Xóa khỏi danh sách',
+        onTap: () {
+          final requestDetail = Request.fromRTDB(request);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DetailRequestScreen(request: requestDetail)));
+        },
+        child: request['it_email'] == user!.email
+            ? Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.all(10),
+                height: 230,
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.report_problem,
+                          color: Theme.of(context).primaryColor,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          request['problem'],
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.devices_other_outlined,
+                          color: Colors.red,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          request['device'],
                           style: TextStyle(
                               fontSize: 16,
                               color: Colors.red,
-                              fontWeight: FontWeight.w600)),
-                    ],
-                  ),
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.description_outlined,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          request['user_email'],
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.purple,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.sort_outlined,
+                          color: Colors.green,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          request['status'],
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.green,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star_border_purple500,
+                          color: Colors.amber[600],
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          request['rating'],
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.amber[600],
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.design_services,
+                          color: Colors.teal[400],
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          request['feedback'],
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.teal[400],
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            reqRef.child(request['key']).remove();
+                            displayToastMessage("Đã xóa yêu cầu", context);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.cancel,
+                                color: Colors.red,
+                              ),
+                              SizedBox(
+                                width: 6,
+                              ),
+                              Text('Xóa khỏi danh sách',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w600)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-            
-          ],
-            ),
-          ],
-        ),
-      ):Text('')
-    );
+              )
+            : Text(''));
   }
 
   @override

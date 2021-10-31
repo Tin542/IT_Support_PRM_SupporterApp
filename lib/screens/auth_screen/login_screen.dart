@@ -168,10 +168,6 @@ class LoginScreen extends StatelessWidget {
     Fluttertoast.showToast(msg: message);
   }
 
-  Widget backtoRegister(BuildContext context) {
-    return RegisterScreen();
-  }
-
   Widget backtoForgotPasswordScreen(BuildContext context) {
     return ForgotPasswordScreen();
   }
