@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:it_support/constant.dart';
 import 'package:it_support/firebase_database/database.dart';
 import 'package:it_support/screens/bottom_nav_bar_screen.dart';
-import 'package:it_support/screens/home_screen.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -360,18 +359,20 @@ class _EditProfileState extends State<EditProfile> {
       },
     );
   }
-  void updateProfile() async {
 
+  void updateProfile() async {
     itspRef.child(user!.uid).update({
-      'name' : nameTextNameController.text.trim(),
-      'phone' : phoneTextNameController.text.trim(),
+      'name': nameTextNameController.text.trim(),
+      'phone': phoneTextNameController.text.trim(),
       "gender": _choosegender,
-      'dob' : dobTextEditingController.text.trim(),
+      'dob': dobTextEditingController.text.trim(),
     });
 
     displayToastMessage("Cập nhập thông tin thành công", context);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
   }
+
   void getProfileuser() {
     itspRef.child(user!.uid).onValue.listen((event) {
       final data = new Map<String, dynamic>.from(event.snapshot.value);
@@ -395,7 +396,7 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  displayToastMessage(String message, BuildContext context){
-    Fluttertoast.showToast(msg:message);
+  displayToastMessage(String message, BuildContext context) {
+    Fluttertoast.showToast(msg: message);
   }
 }

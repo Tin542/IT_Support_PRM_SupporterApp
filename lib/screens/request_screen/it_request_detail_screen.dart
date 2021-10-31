@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:it_support/models/request.dart';
 
-import '../../constant.dart';
-
 class DetailRequestScreen extends StatelessWidget {
   final Request request;
   const DetailRequestScreen({Key? key, required this.request})
@@ -68,7 +66,7 @@ class DetailRequestScreen extends StatelessWidget {
                     labelText: "Trạng thái",
                   ),
                   initialValue: request.status),
-                   SizedBox(height: 30),
+              SizedBox(height: 30),
               TextFormField(
                   readOnly: true,
                   decoration: const InputDecoration(

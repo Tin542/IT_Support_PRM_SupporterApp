@@ -27,7 +27,6 @@ class _CallScreenState extends State<CallScreen> {
     initAgora();
   }
 
-
   Future<void> initAgora() async {
     _engine = await RtcEngine.createWithConfig(RtcEngineConfig(appID));
     await _engine.enableVideo();
