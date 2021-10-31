@@ -18,6 +18,7 @@ class waitingscreen extends StatefulWidget {
 
 
 class _listrequestState extends State<waitingscreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   late String _chooseprice = '';
 
   final _ref = FirebaseDatabase.instance.reference().child("requests");
@@ -60,7 +61,7 @@ class _listrequestState extends State<waitingscreen> {
                     builder: (context) =>
                         DetailRequestScreen(request: requestDetail)));
       },
-      child: Container(
+      child: request['it_email'] == user!.email? Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
         height: 210,
@@ -278,7 +279,7 @@ class _listrequestState extends State<waitingscreen> {
             )
           ],
         ),
-      ),
+      ): Text('')
     );
   }
 

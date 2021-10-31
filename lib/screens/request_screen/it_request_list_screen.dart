@@ -15,20 +15,38 @@ class listrequest extends StatefulWidget {
 }
 
 class _listrequestState extends State<listrequest> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getItEmail();
+  }
+
+  void getItEmail() {
+    itspRef.child(user!.uid).onValue.listen((event) {
+      final data = new Map<String, dynamic>.from(event.snapshot.value);
+      final email = data['email'] as String;
+
+      setState(() {
+        itEmail = '$email';
+      });
+    });
+  }
+
+  User? user = FirebaseAuth.instance.currentUser;
+  String itEmail = '';
   final _ref = FirebaseDatabase.instance.reference().child("requests");
-  
 
   Widget _buildRequestItem({required Map request}) {
     return GestureDetector(
-      
-      onTap: (){
-            final requestDetail = Request.fromRTDB(request);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        DetailRequestScreen(request: requestDetail)));
-          },
+      onTap: () {
+        final requestDetail = Request.fromRTDB(request);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DetailRequestScreen(request: requestDetail)));
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
@@ -77,10 +95,11 @@ class _listrequestState extends State<listrequest> {
                       color: Colors.red,
                       fontWeight: FontWeight.w600),
                 ),
-              
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
                 Icon(
@@ -100,7 +119,9 @@ class _listrequestState extends State<listrequest> {
                 ),
               ],
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
                 Icon(
@@ -118,31 +139,40 @@ class _listrequestState extends State<listrequest> {
                       color: Colors.amberAccent,
                       fontWeight: FontWeight.w600),
                 ),
-                
-                
               ],
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                  
-              GestureDetector(onTap: (){
-                reqRef.child(request['key']).update({'status' : 'Đang xử lí'});
-                displayToastMessage("Chấp nhận thành công", context);
-              },
-              child: Row(children: [
-                Icon(Icons.check_box, color: Colors.green,),
-                SizedBox(width: 6,),
-    
-                Text('Chấp nhận',
-                
-                style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.green,
-                      fontWeight: FontWeight.w600)),
-              ],),)
-            ],)
+                GestureDetector(
+                  onTap: () {
+                    reqRef.child(request['key']).update(
+                      {'status': 'Đang xử lí', 'it_email': itEmail},
+                    );
+                    displayToastMessage("Chấp nhận thành công", context);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.check_box,
+                        color: Colors.green,
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text('Chấp nhận',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.green,
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -170,6 +200,7 @@ class _listrequestState extends State<listrequest> {
       ),
     );
   }
+
   displayToastMessage(String message, BuildContext context) {
     Fluttertoast.showToast(msg: message);
   }

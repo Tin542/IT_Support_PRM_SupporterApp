@@ -15,6 +15,7 @@ class donescreen extends StatefulWidget {
 }
 
 class _listrequestState extends State<donescreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   final _ref = FirebaseDatabase.instance.reference().child("requests");
 
   Widget _buildRequestItem({required Map request}) {
@@ -27,7 +28,7 @@ class _listrequestState extends State<donescreen> {
                     builder: (context) =>
                         DetailRequestScreen(request: requestDetail)));
       },
-      child: Container(
+      child: request['it_email'] == user!.email? Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
         height: 230,
@@ -206,7 +207,7 @@ class _listrequestState extends State<donescreen> {
             ),
           ],
         ),
-      ),
+      ):Text('')
     );
   }
 
