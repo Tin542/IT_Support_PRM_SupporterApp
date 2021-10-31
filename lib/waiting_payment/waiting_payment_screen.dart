@@ -9,6 +9,7 @@ import 'package:it_support/screens/request_screen/it_request_detail_screen.dart'
 
 class waitingpayment extends StatefulWidget {
   const waitingpayment({Key? key}) : super(key: key);
+  
 
   @override
   _listrequestState createState() => _listrequestState();
@@ -16,6 +17,9 @@ class waitingpayment extends StatefulWidget {
 
 class _listrequestState extends State<waitingpayment> {
   final _ref = FirebaseDatabase.instance.reference().child("requests");
+  final _price = FirebaseDatabase.instance.reference().child("prices");
+  final TextEditingController levelTextEditingController =
+      TextEditingController();
 
   Widget _buildRequestItem({required Map request}) {
     return GestureDetector(
@@ -105,7 +109,7 @@ class _listrequestState extends State<waitingpayment> {
             Row(
               children: [
                 Icon(
-                  Icons.sort_outlined,
+                  Icons.account_balance_wallet,
                   color: Colors.teal[400],
                   size: 20,
                 ),
@@ -123,6 +127,7 @@ class _listrequestState extends State<waitingpayment> {
                 
               ],
             ),
+           
             
             SizedBox(
               height: 8,

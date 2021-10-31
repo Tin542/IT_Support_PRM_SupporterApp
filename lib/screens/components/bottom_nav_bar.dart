@@ -20,7 +20,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
     listrequest(),
     waitingscreen(),
     waitingpayment(),
-    ListChatScreen(),
     ProfileScreen(),
   ];
   @override
@@ -50,10 +49,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   icon: Icon(Icons.history), label: "Danh sách chờ"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.payment), label: "Danh sách thanh toán"),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.message),
-                label: "Trò truyện",
-              ),
+             
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: "Hồ Sơ",
