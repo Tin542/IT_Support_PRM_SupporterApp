@@ -114,17 +114,6 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       child: Text(
-                        "NGƯỜI DÙNG MỚI ?",
-                        style:
-                            TextStyle(fontSize: 15, color: Color(0xff888888)),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: backtoRegister));
-                      },
-                    ),
-                    InkWell(
-                      child: Text(
                         "QUÊN MẬT KHẨU",
                         style: TextStyle(fontSize: 15, color: Colors.blue),
                       ),
