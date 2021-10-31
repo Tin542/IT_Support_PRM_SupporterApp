@@ -15,8 +15,39 @@ class waitingscreen extends StatefulWidget {
   _listrequestState createState() => _listrequestState();
 }
 
+
+
 class _listrequestState extends State<waitingscreen> {
+  late String _chooseprice = '';
+
   final _ref = FirebaseDatabase.instance.reference().child("requests");
+
+   Widget _price(String title) {
+    return InkWell(
+      child: Container(
+        height: 30,
+        width: 80,
+        decoration: BoxDecoration(
+          color: _chooseprice == title
+              ? Colors.green
+              : Theme.of(context).accentColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          ),
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          _chooseprice = title;
+        });
+      },
+    );
+  }
+  
 
   Widget _buildRequestItem({required Map request}) {
     
@@ -32,7 +63,7 @@ class _listrequestState extends State<waitingscreen> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.all(10),
-        height: 169,
+        height: 210,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -125,6 +156,37 @@ class _listrequestState extends State<waitingscreen> {
                 
               ],
             ),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Container(
+                  height: 30,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      _price('20000'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      _price('30000'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      _price('40000'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      _price('50000'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      _price('60000'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             SizedBox(
               height: 8,
             ),
@@ -135,8 +197,11 @@ class _listrequestState extends State<waitingscreen> {
                   onTap: () {
                     reqRef
                         .child(request['key'])
-                        .update({'status': 'đã xử lí xong'});
-                    displayToastMessage("Đã hoàn thành yêu cầu", context);
+                        .update({'status': 'Chờ thanh toán'});
+                    
+                    reqRef.child(request['key'])
+                            .update({'price': _chooseprice});
+                            displayToastMessage("Đã gửi hóa đơn cho khách hàng", context);
                   },
                   child: Row(
                     children: [
@@ -162,7 +227,7 @@ class _listrequestState extends State<waitingscreen> {
                   onTap: () {
                     reqRef
                         .child(request['key'])
-                        .update({'status': 'đang chờ xử lí'});
+                        .update({'status': 'Đang chờ xử lí'});
                     displayToastMessage("Hủy bỏ yêu cầu thành công", context);
                   },
                   child: Row(
@@ -227,7 +292,7 @@ class _listrequestState extends State<waitingscreen> {
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đang xử lí'),
+          query: _ref.orderByChild("status").equalTo('Đang xử lí'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;

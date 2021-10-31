@@ -17,9 +17,6 @@ class waitingpayment extends StatefulWidget {
 
 class _listrequestState extends State<waitingpayment> {
   final _ref = FirebaseDatabase.instance.reference().child("requests");
-  final _price = FirebaseDatabase.instance.reference().child("prices");
-  final TextEditingController levelTextEditingController =
-      TextEditingController();
 
   Widget _buildRequestItem({required Map request}) {
     return GestureDetector(
@@ -178,7 +175,7 @@ class _listrequestState extends State<waitingpayment> {
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đang chờ thanh toán'),
+          query: _ref.orderByChild("status").equalTo('Chờ thanh toán'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;
