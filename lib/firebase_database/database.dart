@@ -10,3 +10,6 @@ DatabaseReference itspRef = FirebaseDatabase.instance.reference().child("itsuppo
 
 //Request
 DatabaseReference reqRef = FirebaseDatabase.instance.reference().child("requests");
+
+//Prices
+DatabaseReference prices = FirebaseDatabase.instance.reference().child("prices");

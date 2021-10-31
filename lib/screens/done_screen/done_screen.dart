@@ -220,7 +220,7 @@ class _listrequestState extends State<donescreen> {
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đã thanh toán xong'),
+          query: _ref.orderByChild("status").equalTo('Hoàn thành'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;

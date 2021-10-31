@@ -128,7 +128,7 @@ class _listrequestState extends State<listrequest> {
               children: [
                   
               GestureDetector(onTap: (){
-                reqRef.child(request['key']).update({'status' : 'đang xử lí'});
+                reqRef.child(request['key']).update({'status' : 'Đang xử lí'});
                 displayToastMessage("Chấp nhận thành công", context);
               },
               child: Row(children: [
@@ -159,7 +159,7 @@ class _listrequestState extends State<listrequest> {
       body: Container(
         height: double.infinity,
         child: FirebaseAnimatedList(
-          query: _ref.orderByChild("status").equalTo('đang chờ xử lí'),
+          query: _ref.orderByChild("status").equalTo('Đang chờ xử lí'),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             Map request = snapshot.value;
