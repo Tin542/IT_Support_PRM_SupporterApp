@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 },
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(100, 0, 0, 0),
+                                      const EdgeInsets.fromLTRB(45, 0, 0, 0),
                                   child: Icon(
                                     Icons.edit,
                                     color: kWhiteColor,
