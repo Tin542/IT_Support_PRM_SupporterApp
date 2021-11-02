@@ -9,7 +9,7 @@ import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 const appID = "e776752fc87946d0bb62ea81c3ceb4a1";
 //token to get in room of Agora change after 24 hours
 const token =
-    "006e776752fc87946d0bb62ea81c3ceb4a1IAAmxD4UMLPne5vp+JOzMJnDljrhJJWQFPK+dQlTZgwl3OCIuyMAAAAAEADJD5AXzop2YQEAAQC7inZh";
+    "006e776752fc87946d0bb62ea81c3ceb4a1IAAKz5PfrV4UAG+M+3pyrYbaJuTSiN7aQjqsmOKSewMBUuCIuyMAAAAAEADiW+WxFKSCYQEAAQD/o4Jh";
 
 class CallScreen extends StatefulWidget {
   @override
