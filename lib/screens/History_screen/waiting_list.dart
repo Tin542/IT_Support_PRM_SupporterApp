@@ -212,7 +212,7 @@ class _listrequestState extends State<waitingscreen> {
                               ),
                               Text('Hoàn thành',
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.green,
                                       fontWeight: FontWeight.w600)),
                             ],
@@ -240,7 +240,7 @@ class _listrequestState extends State<waitingscreen> {
                               ),
                               Text('Hủy Bỏ',
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.red,
                                       fontWeight: FontWeight.w600)),
                             ],
@@ -267,7 +267,7 @@ class _listrequestState extends State<waitingscreen> {
                               ),
                               Text('Video call',
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.blue,
                                       fontWeight: FontWeight.w600)),
                             ],
