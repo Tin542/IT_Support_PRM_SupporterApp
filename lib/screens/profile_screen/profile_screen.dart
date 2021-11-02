@@ -183,35 +183,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           hintText: displayPhone,
                           icon: Icons.phone,
                         ),
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: kBlueColor,
-                            //Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Icon(
-                                  Icons.contact_support,
-                                  color: kWhiteColor,
-                                ),
-                              ),
-                              Text(
-                                "Cài đặt",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 22,
-                                  color: kWhiteColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   height: 50,
+                        //   decoration: BoxDecoration(
+                        //     color: kBlueColor,
+                        //     //Colors.grey.shade300,
+                        //     borderRadius: BorderRadius.circular(8),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.start,
+                        //     children: [
+                        //       Padding(
+                        //         padding:
+                        //             const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        //         child: Icon(
+                        //           Icons.contact_support,
+                        //           color: kWhiteColor,
+                        //         ),
+                        //       ),
+                        //       Text(
+                        //         "Cài đặt",
+                        //         style: TextStyle(
+                        //           fontWeight: FontWeight.bold,
+                        //           fontSize: 22,
+                        //           color: kWhiteColor,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         textfield(
                             hintText: 'Lịch sử',
                             icon: Icons.history,
